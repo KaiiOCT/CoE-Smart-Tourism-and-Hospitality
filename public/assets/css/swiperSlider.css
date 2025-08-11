@@ -1,0 +1,15 @@
+:root {
+    --swiper-navigation-color: black;
+}
+
+.mySwiper {
+    --swiper-navigation-size: 25px;
+    width: 85%;
+}
+
+swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+}

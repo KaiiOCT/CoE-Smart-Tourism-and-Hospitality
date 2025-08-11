@@ -1,0 +1,27 @@
+:root {
+    --swiper-navigation-color: black;
+}
+
+.mySwiper {
+    --swiper-navigation-size: 25px;
+    width: 100%;
+}
+
+.swiper-wrapper{
+    /* padding-left: 20px; */
+    width: 90%;
+}
+
+.swiper-slide {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    /* width: max-content; */
+}
+
+@media (max-width: 768px) {
+    .mySwiper {
+        width: 100%;
+    }
+  }
