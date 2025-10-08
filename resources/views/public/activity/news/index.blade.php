@@ -189,5 +189,34 @@
     {{-- footer --}}
 
     <script src="{{ asset("assets/js/navbar.js") }}"></script>
-  </div>
+    <script>
+    const carousel = document.getElementById('carousel-inner');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+
+    const totalItems = carousel.children.length;
+    const itemsPerView = 2; // Karena 2 card terlihat per view
+    let index = 0;
+
+    function updateCarousel() {
+        // Hitung total “slide” yang mungkin
+        const maxIndex = Math.ceil(totalItems / itemsPerView) - 1;
+        // Batasi index supaya looping
+        const offsetIndex = Math.min(index, maxIndex);
+        const offset = -offsetIndex * 100; // Geser per “view”
+        carousel.style.transform = `translateX(${offset}%)`;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        const maxIndex = Math.ceil(totalItems / itemsPerView) - 0;
+        index = (index - 1 + (maxIndex + 1)) % (maxIndex + 1); // looping ke terakhir
+        updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        const maxIndex = Math.ceil(totalItems / itemsPerView) - 0;
+        index = (index + 1) % (maxIndex + 1); // looping ke pertama
+        updateCarousel();
+    });
+    </script>
 </x-guest-layout>

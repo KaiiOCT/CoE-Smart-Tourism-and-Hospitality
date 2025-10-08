@@ -16,17 +16,16 @@
     </style>
 @endpush
 
-<nav id="navbar" class="{{
-    Request::is("/")
-    ? "bg-transparent text-white"
-    : "left-1/2 -translate-x-1/2 rounded-b-2xl bg-white text-black shadow-lg transition-all md:w-[95%]"
-  }} fixed z-50 w-full border-gray-200 md:px-20">
-    <div class="flex flex-wrap items-center justify-between px-5 py-2">
+<nav id="navbar" class="bg-transparent text-white fixed z-50 w-full border-gray-200 md:px-20 transition-colors duration-300 ease-in-out">
+    <div class="flex flex-wrap items-center justify-between px-6 py-0">
         <a id="navbarIconText" href="#" class="flex items-center space-x-3">
-            <img src="{{ asset('assets/images/home/logo.png') }}" class="h-8 md:h-16" alt="Ceo Smart Tourism" />
-            
-            <span class="self-center whitespace-nowrap text-xs font-semibold md:text-xl leading-tight">
-                <h1 class="text-base tracking-[0.35em] drop-shadow-md">Center of Excellence</h1>
+            <img src="{{ asset('assets/images/sthfinal.png') }}" class="h-8 md:h-16" alt="Ceo Smart Tourism" />
+
+            <span class="self-center text-xs font-semibold md:text-xl leading-tight flex flex-col items-center">
+                <h1 class="text-base drop-shadow-md">
+                    <span class="tracking-[0.33em]">Center</span>
+                    <span class="tracking-[0.26em]">of Excellence</span>
+                </h1>
                 <h1 class="text-lg drop-shadow-md">Smart Tourism & Hospitality</h1>
             </span>
         </a>
@@ -40,8 +39,7 @@
                     d="M1 1h15M1 7h15M1 13h15" />
             </svg>
         </button>
-        <div class="{{ Request::is("/") ? "text-black md:text-white" : "text-black md:text-black" }} hidden w-full text-sm md:block md:w-auto"
-            id="mobileMenu">
+        <div class="hidden w-full text-sm md:block md:w-auto" id="mobileMenu">
             <ul
                 class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-white p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent md:p-0 rtl:space-x-reverse">
                 <li>
@@ -191,7 +189,7 @@
                                 {{-- mobile button --}}
                                 <button id="" data-dropdown-toggle="innovationDropdown"
                                     class="{{ Request::is("activity/innovation*") ? "text-orange1" : "" }} flex w-full items-center justify-between text-nowrap rounded px-4 py-2 hover:bg-gray-100 hover:text-orange1 md:hidden md:w-auto md:border-0 md:p-0 md:hover:bg-transparent">
-                                    Inovas
+                                    inovasi
                                 </button>
                                 {{-- mobile dropdown menu for innovation --}}
                                 <div id="innovationDropdown"
@@ -228,7 +226,7 @@
                                         <li>
                                             <a href="{{ route("training.index") }}"
                                                 class="{{ Request::is("activity/business/training*") ? "text-orange1" : "" }} block text-nowrap px-4 py-2 hover:bg-gray-100 md:hover:text-orange1">
-                                                Rumah Jurnal
+                                                Arsygo
                                             </a>
                                         </li>
                                         <li>
@@ -258,7 +256,7 @@
                                         <li>
                                             <a href="{{ route("journal.index") }}"
                                                 class="{{ Request::is("activity/business/training*") ? "text-orange1" : "" }} block px-4 py-2 hover:bg-gray-100 hover:text-orange1">
-                                                Rumah Jurnal
+                                                Arsygo
                                             </a>
                                         </li>
                                         <li>
@@ -373,5 +371,26 @@
             </ul>
         </div>
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const navbar = document.getElementById("navbar");
+
+        function updateNavbarStyle() {
+            if (window.scrollY > 0) {
+                navbar.classList.remove("bg-transparent", "text-white");
+                navbar.classList.add("bg-white", "text-black", "shadow-md");
+            } else {
+                navbar.classList.remove("bg-white", "text-black", "shadow-md");
+                navbar.classList.add("bg-transparent", "text-white");
+            }
+        }
+
+        updateNavbarStyle();
+        window.addEventListener("scroll", updateNavbarStyle);
+    });
+    </script>
+
     <script src="{{ asset("assets/js/dropdownNavbar.js") }}"></script>
+    
 </nav>

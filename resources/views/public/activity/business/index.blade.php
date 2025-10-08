@@ -1,19 +1,35 @@
 <x-guest-layout>
     <div>
         {{-- ==== HEADER ==== --}}
-        @include('public.components.navbar')
-        <div class="relative h-[30vh] w-full bg-[#2593CF] md:h-[45vh]">
-            <div class="absolute left-1/2 top-1/2 h-[181px] w-11/12 -translate-x-1/2 md:top-[35%] md:h-[400px] md:w-5/6">
-                <div class="relative flex h-full w-full flex-col justify-center overflow-hidden rounded-[30px] bg-cover bg-bottom bg-no-repeat text-white md:rounded-[50px]"
-                    style="background-image: url('/assets/images/home/bisnis.png')">
-                    <div class="absolute inset-0 bg-black opacity-50"></div>
-                    <div class="relative z-10 text-center">
-                        <h1 class="text-2xl font-bold md:text-5xl">Bisnis</h1>
-                        <h2 class="font-extralight md:text-4xl">Center of Excellence Smart Tourism & Hospitality</h2>
-                    </div>
+        <header>
+            @include('public.components.navbar')
+            <div
+                class="align-items-center relative flex h-screen flex-col items-center justify-center bg-cover bg-fixed bg-no-repeat text-center font-semibold text-white">
+                <!-- Video sebagai latar belakang -->
+                <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                    <source src="assets/images/videowebsite.mp4" type="video/mp4">
+                </video>
+                <!-- Overlay hitam transparan -->
+                <div class="absolute inset-0 bg-black opacity-50"></div>
+
+                <!-- Konten di atas background dan overlay -->
+            <div class="relative mt-48 mx-11 sm:mx-30 lg:mx-40 h-full flex flex-col justify-center items-center text-white">
+                <div class="text-2xl sm:text-3xl lg:text-4xl font-bold">
+                    <span class="typewriter block text-center max-w-[800px]">
+                        Bisnis
+                    </span>
+                </div>
+
+                <div class="pt-5">
+                    <p class="text-[15px] sm:text-lg lg:text-xl text-[#bbbbbb] text-center">
+                    Inovasi adalah kunci keberlanjutan bisnis. Dengan memadukan riset, teknologi, dan kreativitas, 
+                    kami menghadirkan solusi yang relevan, bernilai tambah, dan berdampak positif bagi pelanggan 
+                    serta pemangku kepentingan
+                    </p>
                 </div>
             </div>
-        </div>
+            </div>
+        </header>
 
         <main class="mt-36 flex flex-col items-center">
             {{-- Container 1: Kegiatan Bisnis --}}

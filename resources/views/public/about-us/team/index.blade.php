@@ -2,39 +2,40 @@
     <div>
         <header>
             @include('public.components.navbar')
-            <div class="relative h-[30vh] w-full bg-[#2593CF] md:h-[45vh]">
-                <div
-                    class="absolute left-[50%] top-[50%] h-[181px] w-11/12 -translate-x-[50%] md:top-[35%] md:h-[400px] md:w-5/6">
-                    <div
-                        class="relative flex h-full w-full flex-col justify-center overflow-hidden rounded-[30px] text-white md:rounded-[50px]">
+            <div class="relative flex h-screen flex-col items-center justify-center text-center font-semibold text-white overflow-hidden">
+                
+                <!-- Video sebagai latar belakang -->
+                <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                    <source src="{{ asset('assets/images/home/videoo.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
 
-                        <!-- VIDEO BACKGROUND -->
-                        <video autoplay muted loop playsinline
-                            class="absolute -z-10 h-full w-full object-cover rounded-[30px] md:rounded-[50px]">
-                            <source src="{{ asset('assets/images/home/videoo.mp4') }}" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
+                <!-- Overlay hitam transparan -->
+                <div class="absolute inset-0 bg-black opacity-50"></div>
 
-                        <!-- Overlay -->
-                        <div class="absolute inset-0 bg-black opacity-50 rounded-[30px] md:rounded-[50px]"></div>
+                <!-- Konten di atas video dan overlay -->
+                <div class="relative z-10 mt-48 mx-11 sm:mx-30 lg:mx-40 flex flex-col justify-center items-center text-white">
+                    <div class="text-2xl sm:text-3xl lg:text-4xl font-bold">
+                        <span class="typewriter block text-center max-w-[800px]">
+                            Center of Excellence Smart Tourism & Hospitality
+                        </span>
+                    </div>
 
-                        <div class="relative z-10 text-center">
-                            <h1 class="text-xl font-semibold md:text-5xl">
-                                Center of Excellence
-                            </h1>
-                            <h1 class="text-xl font-semibold md:text-6xl">
-                                Smart Tourism & Hospitality
-                            </h1>
-                        </div>
+                    <div class="pt-5">
+                        <p class="text-[15px] sm:text-lg lg:text-xl text-[#bbbbbb] text-center max-w-[800px]">
+                            Center of Excellence Smart Tourism and Hospitality merupakan pusat unggulan di bidang pariwisata dan hospitality
+                            yang berfokus pada riset, inovasi, bisnis, dan pengabdian kepada masyarakat.
+                        </p>
                     </div>
                 </div>
             </div>
         </header>
 
+
         <main class="flex flex-col items-center">
         {{-- Sejarah COE --}}
         <div class="mt-28 w-11/12 pb-10 md:mt-[252px] md:w-5/6 mx-auto">
-        <div class="mt-28 w-11/12 md:mt-[252px] md:w-5/6 mx-auto pb-10 text-center">
+        <div class="-mt-10 w-11/12 md:-mt-16 md:w-5/6 mx-auto pb-10 text-center relative z-10">
             <!-- Judul -->
             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight mb-4">
                 Tim <span class="text-[#F6A11F]">CoE</span><br class="hidden sm:block" />
@@ -120,13 +121,16 @@
                                     class="absolute h-full w-full object-cover" />
                                 <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black opacity-70"></div>
                                 <div class="absolute bottom-0 w-full text-[9px] md:text-[11px] lg:text-sm px-2 py-5">
-                                    <p class="font-semibold text-white">{{ $member->name }}</p>
+                                    <p class="font-semibold text-white whitespace-nowrap overflow-hidden truncate">
+                                        {{ $member->name }}
+                                    </p>
                                     <p class="text-pink-sth pt-1">{{ $member->position }}</p>
                                 </div>
                             </a>
                         @endif
                     @endforeach
                 </div>
+
             </div>
         </div>
 
