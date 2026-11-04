@@ -1,7 +1,7 @@
 <?php
 
-// use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\History\HistoryController;
 use App\Http\Controllers\Team\TeamController;
 use App\Http\Controllers\Profile\ProfileController;
@@ -12,32 +12,37 @@ use App\Http\Controllers\Bussines\BussinesController;
 use App\Http\Controllers\CommunityService\CommunityServiceController;
 use App\Http\Controllers\Intern\InternController;
 use App\Http\Controllers\collaboration\CollaborationController;
-use App\Http\Controllers\admin\aktivitas\AdminAktivitasController;
-use App\Http\Controllers\admin\aktivitas\AdminNewsController;
 use App\Http\Controllers\Journal\JournalController;
+use App\Http\Controllers\Innovillage\InnovillageController;
 use App\Http\Controllers\Training\TrainingController;
 use App\Http\Controllers\Shop\ShopController;
+
 use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\admin\aktivitas\AdminAktivitasController;
 use App\Http\Controllers\admin\aktivitas\AdminResearchController;
 use App\Http\Controllers\admin\aktivitas\AdminJournalController;
 use App\Http\Controllers\admin\aktivitas\AdminInnovationController;
 use App\Http\Controllers\admin\aktivitas\AdminBusinessController;
-use App\Http\Controllers\admin\aktivitas\AdminComunityController;
 use App\Http\Controllers\admin\aktivitas\AdminShopController;
-use App\Http\Controllers\admin\aktivitas\AdminTrainingController;
-use App\Http\Controllers\admin\aktivitas\AdminServiceController;
 use App\Http\Controllers\admin\aktivitas\AdminInnovilageController;
+use App\Http\Controllers\admin\aktivitas\AdminTrainingController;
+use App\Http\Controllers\admin\aktivitas\AdminComunityController;
+use App\Http\Controllers\admin\aktivitas\AdminServiceController;
+use App\Http\Controllers\admin\aktivitas\AdminNewsController;
+
 use App\Http\Controllers\admin\member\AdminMemberController;
 use App\Http\Controllers\admin\member\AdminInternalController;
 use App\Http\Controllers\admin\member\AdminStudentController;
 use App\Http\Controllers\admin\timeline\AdminTimelineController;
 use App\Http\Controllers\admin\program\AdminProgramController;
-use App\Http\Controllers\admin\program\AdminInterController;
 use App\Http\Controllers\admin\program\AdminPartnerController;
-use App\Http\Controllers\Innovillage\InnovillageController;
+use App\Http\Controllers\admin\program\AdminInterController;
 
-Route::get('/', [WelcomeController::class, 'index']);
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
 Route::get('/anggota', [TeamController::class, 'index'])->name('team.index');
@@ -59,11 +64,23 @@ Route::get('/training', [TrainingController::class, 'index'])->name('training.in
 Route::get('/training/{training}', [TrainingController::class, 'show'])->name('training.show');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 
+// Route Halaman Detail STH News (Sudah Disesuaikan)
+Route::get('/sthnews/{news:slug}', [NewsController::class, 'show'])->name('sthnews.show');
 
+/*
+|--------------------------------------------------------------------------
+| Dashboard User Route
+|--------------------------------------------------------------------------
+*/
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+/*
+|--------------------------------------------------------------------------
+| Admin & Authenticated Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -138,7 +155,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [AdminMemberController::class, 'index'])->name('index');
         });
 
-        // Update internal member routes
         Route::prefix('internal-member')->name('internal-member.')->group(function() {
             Route::get('/', [AdminInternalController::class, 'index'])->name('index');
             Route::get('/create', [AdminInternalController::class, 'create'])->name('create');

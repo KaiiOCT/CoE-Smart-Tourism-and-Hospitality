@@ -16,9 +16,19 @@
     </style>
 @endpush
 
-<nav id="navbar" class="bg-transparent text-white fixed z-50 w-full border-gray-200 md:px-20 transition-colors duration-300 ease-in-out">
+@php
+    // Deteksi halaman berita secara menyeluruh (berdasarkan path URL maupun named route)
+    $isSolidNavbar = request()->is('activity/news*') 
+                  || request()->is('news*') 
+                  || request()->routeIs('news*')
+                  || request()->routeIs('activity.news*');
+@endphp
+
+<nav id="navbar" 
+    data-solid="{{ $isSolidNavbar ? 'true' : 'false' }}"
+    class="{{ $isSolidNavbar ? '!bg-white !text-black shadow-md' : 'bg-transparent text-white' }} fixed z-50 w-full border-gray-200 md:px-20 transition-colors duration-300 ease-in-out">
     <div class="flex flex-wrap items-center justify-between px-6 py-0">
-        <a id="navbarIconText" href="#" class="flex items-center space-x-3">
+        <a id="navbarIconText" href="{{ route('home') }}" class="flex items-center space-x-3">
             <img src="{{ asset('assets/images/sthfinal.png') }}" class="h-8 md:h-16" alt="Ceo Smart Tourism" />
 
             <span class="self-center text-xs font-semibold md:text-xl leading-tight flex flex-col items-center">
@@ -99,7 +109,7 @@
                             {{-- item berita --}}
                             <li>
                                 <a href="{{ route("news.index") }}"
-                                    class="{{ Request::is("activity/news") ? "text-orange1" : "" }} block text-nowrap px-4 py-2 text-sm hover:bg-gray-100 hover:text-orange1 hover:md:bg-transparent">
+                                    class="{{ Request::is("activity/news*") ? "text-orange1" : "" }} block text-nowrap px-4 py-2 text-sm hover:bg-gray-100 hover:text-orange1 hover:md:bg-transparent">
                                     Berita
                                 </a>
                             </li>
@@ -122,7 +132,7 @@
                                     <ul class="py-2 text-gray-700">
                                         <li>
                                             <a href="{{ route("journal.index") }}"
-                                                class="{{ Request::is("activity/research/journal") ? "text-orange1" : "" }} block px-4 py-2 hover:bg-gray-100 md:hover:text-orange1">
+                                                class="{{ Request::is("activity/research/journal*") ? "text-orange1" : "" }} block px-4 py-2 hover:bg-gray-100 md:hover:text-orange1">
                                                 Jurnal Penelitian
                                             </a>
                                         </li>
@@ -157,59 +167,23 @@
 
                             {{-- Inovasi --}}
                             <li class="group relative" aria-labelledby="dropdownNavbarLink">
-                                {{-- desktop button --}}
                                 <a href="{{ route("innovation.index") }}"
                                     class="{{ Request::is("activity/innovation*") ? "text-orange1" : "" }} hidden w-full items-center justify-between rounded px-4 py-2 text-gray-900 hover:bg-gray-100 md:flex md:border-0 md:hover:bg-transparent md:hover:text-orange1">
                                     Inovasi
-                                    {{-- <svg
-                                        class="ms-2.5 h-2.5 w-2.5 transition-transform duration-300 group-hover:-rotate-90"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m1 1 4 4 4-4" />
-                                    </svg> --}}
                                 </a>
-                                <!-- Desktop Dropdown menu for Innovillage -->
-                                {{-- <div id="doubleDropdown1"
-                                    class="absolute left-full top-0 z-10 hidden w-auto divide-y divide-gray-100 text-nowrap rounded-lg bg-white shadow group-hover:hidden md:group-hover:block">
-                                    <ul class="py-2">
-                                        @foreach ($innovations as $innovation)
-                                        <li>
-                                            <a href="{{ route(" innovation.show", ["innovation"=> $innovation->id]) }}"
-                                                class="{{ Request::is("activity/innovation/" . $innovation->id) ?
-                                                "text-orange1" : "" }} block px-4 py-2 hover:bg-gray-100
-                                                md:hover:text-orange1"
-                                                >
-                                                {{ $innovation->title }}
-                                            </a>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div> --}}
-
-                                {{-- mobile button --}}
                                 <button id="" data-dropdown-toggle="innovationDropdown"
                                     class="{{ Request::is("activity/innovation*") ? "text-orange1" : "" }} flex w-full items-center justify-between text-nowrap rounded px-4 py-2 hover:bg-gray-100 hover:text-orange1 md:hidden md:w-auto md:border-0 md:p-0 md:hover:bg-transparent">
-                                    inovasi
+                                    Inovasi
                                 </button>
-                                {{-- mobile dropdown menu for innovation --}}
                                 <div id="innovationDropdown"
                                     class="absolute top-0 z-10 hidden w-full divide-y divide-gray-100 text-nowrap rounded-lg border bg-white shadow">
                                     <ul class="p-2 text-gray-700">
-                                        {{-- @foreach ($innovations as $innovation)
-                                            <li>
-                                                <a href="{{ route("innovation.show", ["innovation" => $innovation->id]) }}"
-                                                    class="{{ Request::is("activity/innovation/" . $innovation->id) ? "text-orange1" : "" }} block px-4 py-2 hover:bg-gray-100 hover:text-orange1">
-                                                    {{ $innovation->title }}
-                                                </a>
-                                            </li>
-                                        @endforeach --}}
                                     </ul>
                                 </div>
                             </li>
 
                             {{-- Bisnis --}}
                             <li class="group relative" aria-labelledby="dropdownNavbarLink">
-                                {{-- desktop button --}}
                                 <a href="{{ route("business.index") }}"
                                     class="{{ Request::is("activity/business*") ? "text-orange1" : "" }} hidden w-full items-center justify-between rounded px-4 py-2 text-gray-900 hover:bg-gray-100 md:flex md:border-0 md:hover:bg-transparent md:hover:text-orange1">
                                     Bisnis
@@ -219,7 +193,6 @@
                                             stroke-width="2" d="m1 1 4 4 4-4" />
                                     </svg>
                                 </a>
-                                <!-- Desktop Dropdown menu for Innovillage -->
                                 <div id="doubleDropdown1"
                                     class="absolute left-full top-0 z-10 hidden w-auto divide-y divide-gray-100 rounded-lg bg-white shadow group-hover:hidden md:text-nowrap md:group-hover:block">
                                     <ul class="py-2 text-gray-700">
@@ -238,7 +211,6 @@
                                     </ul>
                                 </div>
 
-                                {{-- mobile button --}}
                                 <button id="" data-dropdown-toggle="businessDropdown"
                                     class="{{ Request::is("activity/business*") ? "text-orange1" : "" }} flex w-full items-center justify-between text-nowrap rounded px-4 py-2 hover:bg-gray-100 hover:text-orange1 md:hidden md:w-auto md:border-0 md:p-0 md:hover:bg-transparent">
                                     Bisnis
@@ -249,18 +221,17 @@
                                             stroke-width="2" d="m1 1 4 4 4-4" />
                                     </svg>
                                 </button>
-                                {{-- mobile dropdown menu for riset dan publikasi --}}
                                 <div id="businessDropdown"
                                     class="absolute top-0 z-10 hidden w-full divide-y divide-gray-100 text-nowrap rounded-lg border bg-white shadow">
                                     <ul class="p-2 text-gray-700">
                                         <li>
-                                            <a href="{{ route("journal.index") }}"
+                                            <a href="{{ route("training.index") }}"
                                                 class="{{ Request::is("activity/business/training*") ? "text-orange1" : "" }} block px-4 py-2 hover:bg-gray-100 hover:text-orange1">
                                                 Arsygo
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#"
+                                            <a href="{{ route("shop.index") }}"
                                                 class="{{ Request::is("activity/business/shop*") ? "text-orange1" : "" }} block px-4 py-2 hover:bg-gray-100 hover:text-orange1">
                                                 Kedai CoE
                                             </a>
@@ -271,49 +242,15 @@
 
                             {{-- Community Service --}}
                             <li class="group relative" aria-labelledby="dropdownNavbarLink">
-                                {{-- desktop button --}}
                                 <a href="{{ route("community-service.index") }}"
                                     class="{{ Request::is("activity/community-service*") ? "text-orange1" : "" }} hidden w-full items-center justify-between rounded px-4 py-2 text-gray-900 hover:bg-gray-100 md:flex md:border-0 md:hover:bg-transparent md:hover:text-orange1">
                                     Pengabdian Masyarakat
-                                    {{-- <svg
-                                        class="ms-2.5 h-2.5 w-2.5 transition-transform duration-300 group-hover:-rotate-90"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m1 1 4 4 4-4" />
-                                    </svg> --}}
                                 </a>
-                                <!-- Desktop Dropdown menu for community service -->
-                                {{-- <div id=""
-                                    class="absolute left-full top-0 z-10 hidden w-auto divide-y divide-gray-100 rounded-lg bg-white shadow group-hover:hidden md:text-nowrap md:group-hover:block">
-                                    <ul class="py-2 text-gray-700">
-                                        <li>
-                                            <a href="{{ route(" innovillage") }}" class="{{ Request::is("
-                                                activity/community-service/innovillage*") ? "text-orange1" : "" }} block
-                                                text-nowrap px-4 py-2 hover:bg-gray-100 md:hover:text-orange1">
-                                                Innovillage
-                                            </a>
-                                        </li>
-                                        @foreach ($community_services as $community_service)
-                                        <li>
-                                            <a href="{{ route(" community-service.show", ["community_service"=>
-                                                $community_service->id]) }}"
-                                                class="{{ Request::is("activity/community-service/" .
-                                                $community_service->id) ? "text-orange1" : "" }} block px-4 py-2
-                                                hover:bg-gray-100 md:hover:text-orange1"
-                                                >
-                                                {{ $community_service->title }}
-                                            </a>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div> --}}
 
-                                {{-- mobile button --}}
                                 <button id="" data-dropdown-toggle="communityServiceDropdown"
                                     class="{{ Request::is("activity/community-service*") ? "text-orange1" : "" }} flex w-full items-center justify-between text-nowrap rounded px-4 py-2 hover:bg-gray-100 hover:text-orange1 md:hidden md:w-auto md:border-0 md:p-0 md:hover:bg-transparent">
                                     Pengabdian Masyarakat
                                 </button>
-                                {{-- mobile dropdown menu for community service --}}
                                 <div id="communityServiceDropdown"
                                     class="absolute top-0 z-10 hidden w-full divide-y divide-gray-100 text-nowrap rounded-lg border bg-white shadow">
                                     <ul class="p-2 text-gray-700">
@@ -323,14 +260,6 @@
                                                 Innovillage
                                             </a>
                                         </li>
-                                        {{-- @foreach ($community_services as $community_service)
-                                            <li>
-                                                <a href="{{ route("community-service.show", ["community_service" => $community_service->id]) }}"
-                                                    class="{{ Request::is("activity/community-service/" . $community_service->id) ? "text-orange1" : "" }} block px-4 py-2 hover:bg-gray-100 hover:text-orange1">
-                                                    {{ $community_service->title }}
-                                                </a>
-                                            </li>
-                                        @endforeach --}}
                                     </ul>
                                 </div>
                             </li>
@@ -375,8 +304,16 @@
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const navbar = document.getElementById("navbar");
+        const isSolid = navbar.getAttribute("data-solid") === "true";
 
         function updateNavbarStyle() {
+            if (isSolid) {
+                // Gunakan class !important Tailwind CSS agar mengunci secara permanen
+                navbar.classList.remove("bg-transparent", "text-white");
+                navbar.classList.add("!bg-white", "!text-black", "shadow-md");
+                return;
+            }
+
             if (window.scrollY > 0) {
                 navbar.classList.remove("bg-transparent", "text-white");
                 navbar.classList.add("bg-white", "text-black", "shadow-md");
